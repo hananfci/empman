@@ -28,7 +28,7 @@ import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 exports: [
  
 ],
-entryComponents: [AddemployeeComponent],
+
 providers: [],
  
 })

@@ -1,5 +1,6 @@
 body{
   background-color:#f5f5f5;
+  font-size:15px!important;
 }
 table td{
   font-size:18px;
@@ -73,9 +74,114 @@ table td{
     tr:nth-child(even) {
       background-color: #f2f2f273;
     }
+    .loadingio-spinner-spin-tg278z7z83 {
+      width: 64px;
+      height: 64px;
+      display: inline-block;
+      overflow: hidden;
+      background: transparent;
+      position: absolute;
+       top: -71%;
+      right: 3%; 
+     /*  top: -20%;
+        right: 91%; */
+      z-index: 10000;
+      margin-top:10%;
+    }
+    .reservationspiner{
+      top: -130%;
+      right: 6%;
+    }
+    
+    .loadingio-spinner-print {
+       
+       top: -60%;
+         right: 14%;
+     }
+    .ldio-tw3lft2h3a {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(0.64);
+      backface-visibility: hidden;
+      transform-origin: 0 0; /* see note above */
+    }
+    .ldio-tw3lft2h3a div { box-sizing: content-box; }
+    
+    .label {
+      font-size: 20px;
+      display: inline;
+      padding: .2em .6em .3em;
+      font-size: 13px!important;
+      font-weight: 700;
+      line-height: 1;
+      color: #363131;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: .25em;
+      /* margin-bottom: 16px; */
+  }
+   
+  .form-control {
+    margin-top: 8px;
+    font-size: 1.4rem;
+  }
+    .form-control:focus {
+      color: #212529;
+      background-color: #fff;
+      border-color: #86b7fe;
+      outline: none!important;
+      box-shadow: none!important;
+  }
+  span {
+    font-size: 16px;
+}
+.btn-save{
+  color: white!important;
+  font-size: 15px;
+}
+.modal-footer {
+  
+  background-color: #ecf0f1!important;
+}
+.displaynone{
+  display:none;
+}
+.btn-info.disabled, .btn-info:disabled {
+  color: #000000!important;
+  background-color: #b7bdbe70;
+  border-color: #cacecf7a;
+  cursor: not-allowed;
+  font-size: 20px;
+}
+.form-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 18px;
+}
+.form-content span{
+  display: block;
+}
+.bs-callout.bs-callout-red {
+  border-left-color: #d43f3a;
+}
+.bs-callout {
+  padding: 5px;
+  margin: 10px 0;
+  border: 1px solid #aaaaaa;
+  border-right-width: 5px;
+  border-radius: 0;
+  background-color: white;
+}
 
-   
-   
+.bs-callout.bs-callout-red h4 {
+  color: #d43f3a;
+}
+.form-check-input {
+  position: absolute;
+  margin-left: -6px;
+}
 @media only screen and (max-width: 769px)
     {
     .div-table-container {

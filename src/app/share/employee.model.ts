@@ -7,3 +7,11 @@ export interface  IEmployee{
   
   }
   
+  export interface  IAddEmployee{
+    'empName': string;
+    'empEmail': string;
+    'empAddress': string;
+    'empPhone': string;
+  
+  }
+  

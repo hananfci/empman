@@ -21,7 +21,6 @@ import { AddemployeeComponent } from './employee/addemployee/addemployee.compone
     ReactiveFormsModule,
   ],
   providers: [],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

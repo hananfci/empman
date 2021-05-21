@@ -1,55 +1,53 @@
 import { EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef } from 'ngx-bootstrap/modal'; 
+import { IAddEmployee } from 'src/app/share/employee.model';
+import { EmployeeService } from 'src/app/share/employee.service';
+ import { BsModalRef } from 'ngx-bootstrap/modal';  
 @Component({
   selector: 'app-addemployee',
   templateUrl: './addemployee.component.html',
   styleUrls: ['./addemployee.component.css']
 })
 export class AddemployeeComponent implements OnInit {
-  employeeAddform:FormGroup;;
-  numberOfItems = 0;
-  list: any[] = [];
-  /* , public bsModalRef: BsModalRef */
+  employeeAddform:FormGroup;
+  postdata :boolean= false;
+  employee:IAddEmployee;
   public event: EventEmitter<any> = new EventEmitter();
-  constructor(private formBuilder: FormBuilder, public bsModalRef: BsModalRef)  { }
-
+  constructor(private employeeService:EmployeeService, public bsModalRef: BsModalRef)  { }
+ 
   ngOnInit(): void {
-    debugger;
-    
      this.employeeAddform=new FormGroup({
-      name : new FormControl(null,Validators.required),
       empName : new FormControl(null,Validators.required),
       empAddess : new FormControl(null,Validators.required),
       empEmail : new FormControl(null,[Validators.required,Validators.email]),
       empPhone : new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+[1-9]*$/),Validators.minLength(11)]),
     }); 
-    console.log(this.list)
+    
   }
   onPost(){
-  /*   this.postdata = true;
-    this.center={ nameAr: this.centerForm.value.centerName , nameEn: '', code: '', mobileCode: '',
-     governorateId: this.centerForm.value.govName};
-    this.apiService.onPost( this.center).subscribe( data => { 
+    this.postdata = true;
+    this.employee={
+       empName: this.employeeAddform.value.empName ,
+        empEmail: this.employeeAddform.value.empEmail,
+       empAddress: this.employeeAddform.value.empAddess,
+        empPhone:this.employeeAddform.value.empPhone
+      };
+    this.employeeService.onPost( this.employee).subscribe( data => { 
       this.postdata = false;
-      this.confirmationDialogService.showToast('success', 'تمت الاضافة بنجاح', '  ');
-      this.centerForm.reset();
-    } ); */   
+      this.saveToList();
+      this.employeeAddform.reset();
+    } );    
     
   }
 
   
   saveToList() {
-  /*   this.onPost();
-    if(form.value){
-      this.triggerEvent(form.value.name);
-      this.bsModalRef.hide();
-    } */
-    console.log("yes")
+   this.triggerEvent();
+   this.bsModalRef.hide();
   }
 
-  triggerEvent(item: string) {
-    this.event.emit({ data: item , res:200  });
-  }
+  triggerEvent() {
+    this.event.emit({ data: this.employee , res:200  });
+  } 
 }
