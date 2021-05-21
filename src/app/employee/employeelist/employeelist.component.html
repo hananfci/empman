@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+     <div class="col-xs-12 col-sm-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h2>Manage Employees</h2>
+          <div class="btn-Action">
+            <button  class="btn btn-danger btn-lg "><i class="fa fa-minus"></i>   Delete </button>
+            <button  class="btn btn-success btn-lg btn-add"> <i class="fa fa-plus"></i> Add New Employee</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <table class="table responsetable table-striped">
+            <thead>
+              <tr>
+                <th><input class="form-check-input" type="checkbox" value="" id="all"></th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+             <!--  <tr *ngFor="let emp of employees">
+                <td>{{emp.empName}}</td>
+                  <td>{{ emp.empEmail}}</td>
+                  <td>{{emp.empAddress}}</td>
+                  <td>{{emp.empPhone}}</td>
+                <td>
+                  <button  class="btn btn-danger">Delete</button>
+                    <button  class="btn btn-info" style="margin-left: 10px">Edit</button>
+                </td>
+              </tr> -->
+              <tr>
+                <td><input class="form-check-input" type="checkbox" value="" id="id"></td>
+                <td>hanan</td>
+                  <td>hananfci2014@gmail.com</td>
+                  <td>assuite</td>
+                  <td>01012836</td>
+                <td>
+                  <button  class="btn-delete"><i class="fa fa-trash"></i></button>
+                    <button  class="btn-edit" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><input class="form-check-input" type="checkbox" value="" id="id"></td>
+                <td>hanan</td>
+                  <td>hananfci2014@gmail.com</td>
+                  <td>assuite</td>
+                  <td>01012809836</td>
+                <td>
+                  <button  class="btn-delete"><i class="fa fa-trash"></i></button>
+                    <button  class="btn-edit" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td><input class="form-check-input" type="checkbox" value="" id="id"></td>
+                <td>hanan</td>
+                  <td>hananfci2014@gmail.com</td>
+                  <td>assuite</td>
+                  <td>01012809836</td>
+                <td>
+                  <button  class="btn-delete"><i class="fa fa-trash"></i></button>
+                    <button  class="btn-edit" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{employees}}
+        <ul>
+          <li *ngFor="let item of myList">
+               <span> {{ item}}</span>
+            </li>  
+        </ul>
+    <div  *ngIf="myList?.length >0">
+      <div class="bs-callout bs-callout-red" id="callout-badges-ie8-empty">
+        <h4>القائمة فارغة</h4>
+        <p> 
+            لا يوجد بيانات في حالة العرض هذه , أضف بعض البيانات  .....
+        </p>
+    </div>
+  </div>
+  
+  
+  <div>
+    <h1> Item List </h1>
+    <ul>
+        <li *ngFor="let item of itemList">{{item}}</li>
+    </ul>
+    <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Add New Item</button>
+</div>
+
+
+
