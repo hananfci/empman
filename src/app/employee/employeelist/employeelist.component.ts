@@ -25,9 +25,8 @@ export class EmployeelistComponent implements OnInit {
   mod:number=0;
   postdata :boolean= false;
   empid:number;
- /*  myList: Array<string> = ['.net', 'C#', 'web services'];
-  itemList = ["Book","Pen"]; */
-  chechedEmps:Array<number> = [];
+  isChecked:boolean = false;
+  checkedEmps:Array<number> = [];
   bsModalRef: BsModalRef;
   closeResult: string; 
   constructor(private ngbModal: NgbModal,private router:Router,private route:ActivatedRoute,private employeeService:EmployeeService,private modalService: BsModalService) { }
@@ -96,7 +95,7 @@ export class EmployeelistComponent implements OnInit {
     this.ngbModal.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
       this.closeResult = `Closed with: ${result}`;  
       if (result === 'yes') {  
-        this.chechedEmps.map(item => {this.deleteHero(item)})
+        this.checkedEmps.map(item => {this.deleteHero(item)})
          
       }  
     }, (reason) => {  
@@ -125,17 +124,30 @@ export class EmployeelistComponent implements OnInit {
   checkValue(event:any, id:number)
   {
        if(event.target.checked == true){
-            if(!this.chechedEmps.includes(id))
+            if(!this.checkedEmps.includes(id))
                 {
-                  this.chechedEmps.push(id);
+                  this.checkedEmps.push(id);
                 }
           }
          else
          {
-            if(this.chechedEmps.includes(id))
+            if(this.checkedEmps.includes(id))
               {
-                this.chechedEmps = this.chechedEmps.filter(item => item !== id);
+                this.checkedEmps = this.checkedEmps.filter(item => item !== id);
               } 
          } 
+  }
+  
+ 
+  checkAllValue(event){
+console.log(event)
+this.checkedEmps = []
+const cols = document.querySelectorAll('.form-check-input');
+
+[].forEach.call(cols, (event)=>{
+
+  this.isChecked = !this.isChecked;
+ console.log(event.target.name);
+});
   }
 }
