@@ -22,7 +22,8 @@ export class EmployeeService {
     return this.http.get(`http://81.10.12.74:105/api/Employees/getEmpByID/${id}`);  
   } 
   onDelete(id: number){
-    return this.http.delete(`${this.apiRoot}/deleteEmpByID/${id}`);
+   
+    return this.http.get(`http://81.10.12.74:105/api/Employees/deleteEmpByID/${id}`);
   } 
   onPost(employee: object){
 

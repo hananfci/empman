@@ -9,9 +9,7 @@ import { AddemployeeComponent } from '../addemployee/addemployee.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { throwError } from 'rxjs';
 import { EditempoloyeeComponent } from '../editempoloyee/editempoloyee.component';
-/* import { ConfirmationDialogService } from 'src/app/confirmation-dialog/confirmation-dialog.service';
-
- */
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
@@ -19,7 +17,6 @@ import { EditempoloyeeComponent } from '../editempoloyee/editempoloyee.component
   styleUrls: ['./employeelist.component.css']
 })
 export class EmployeelistComponent implements OnInit {
-  
 
    employees :  Array<IEmployee[]> ; 
   DeletedName : string;
@@ -28,10 +25,12 @@ export class EmployeelistComponent implements OnInit {
   mod:number=0;
   postdata :boolean= false;
   empid:number;
-  myList: Array<string> = ['.net', 'C#', 'web services'];
-  itemList = ["Book","Pen"];
+ /*  myList: Array<string> = ['.net', 'C#', 'web services'];
+  itemList = ["Book","Pen"]; */
+  chechedEmps:Array<number> = [];
   bsModalRef: BsModalRef;
-  constructor(private ref: ChangeDetectorRef,private router:Router,private route:ActivatedRoute,private employeeService:EmployeeService,private modalService: BsModalService) { }
+  closeResult: string; 
+  constructor(private ngbModal: NgbModal,private router:Router,private route:ActivatedRoute,private employeeService:EmployeeService,private modalService: BsModalService) { }
 
   ngOnInit() {
     this.empList()
@@ -81,9 +80,62 @@ export class EmployeelistComponent implements OnInit {
       this.router.navigate(['./employee/addemployee'] )
    });
   }
-  onEdtiClick(id:number){
-    
-    this.router.navigate([`${id}/edit`],{relativeTo: this.route} );
-    
+  open(content, empID,empNameDelete) {  
+    this.DeletedName = empNameDelete;
+    this.ngbModal.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
+      this.closeResult = `Closed with: ${result}`;  
+      if (result === 'yes') {  
+        this.deleteHero(empID);  
+      }  
+    }, (reason) => {  
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
+    });  
+  }  
+  openDeleteGruop(content,empNameDelete) {  
+    this.DeletedName = empNameDelete;
+    this.ngbModal.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {  
+      this.closeResult = `Closed with: ${result}`;  
+      if (result === 'yes') {  
+        this.chechedEmps.map(item => {this.deleteHero(item)})
+         
+      }  
+    }, (reason) => {  
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
+    });
+  }
+  private getDismissReason(reason: any): string {  
+    if (reason === ModalDismissReasons.ESC) {  
+      return 'by pressing ESC';  
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {  
+      return 'by clicking on a backdrop';  
+    } else {  
+      return `with: ${reason}`;  
+    }  
+  }  
+  
+  deleteHero(id) {  
+    debugger
+    this.employeeService.onDelete(id).subscribe(data=>{
+      this.postdata = false; 
+        this.employees=null;
+        this.empList();
+      },err=>{this.postdata = false;});  
+  }
+  
+  checkValue(event:any, id:number)
+  {
+       if(event.target.checked == true){
+            if(!this.chechedEmps.includes(id))
+                {
+                  this.chechedEmps.push(id);
+                }
+          }
+         else
+         {
+            if(this.chechedEmps.includes(id))
+              {
+                this.chechedEmps = this.chechedEmps.filter(item => item !== id);
+              } 
+         } 
   }
 }

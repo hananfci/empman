@@ -14,7 +14,7 @@
         <div class="panel-heading">
           <h2>Manage Employees</h2>
           <div class="btn-Action">
-            <button  class="btn btn-danger "><i class="fa fa-minus"></i>   Delete </button>
+            <button  class="btn btn-danger " (click)="openDeleteGruop(content,'Delete All Selected')"><i class="fa fa-minus"></i>   Delete </button>
             <button  class="btn btn-success btn-add" (click)="openModalWithComponent()"> <i class="fa fa-plus"></i> Add New Employee</button>
           </div>
         </div>
@@ -36,13 +36,13 @@
                <td colspan="5">{{employees.length}}</td>
              </tr> 
                <tr *ngFor="let emp of employees  let i = index">
-                <td><input class="form-check-input" type="checkbox" value="{{emp.empId}}" id="i{{emp.empId}}"></td>
+                <td><input class="form-check-input" (change)="checkValue($event,emp.empId)" type="checkbox"></td>
                 <td>{{emp.empName}}</td>
                   <td>{{ emp.empEmail}}</td>
                   <td>{{emp.empAddress}}</td>
                   <td>{{emp.empPhone}}</td>
                   <td>
-                    <button  class="btn-delete"><i class="fa fa-trash"></i></button>
+                    <button  class="btn-delete" (click)="open(content,emp.empId,emp.empName)" href="javascript:void(0);" ><i class="fa fa-trash"></i></button>
                       <button  class="btn-edit" (click)="openEditModalWithComponent(emp.empId)" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
                   </td>
               </tr> 
@@ -63,16 +63,25 @@
         </p>
     </div>
   </div>
+
+  <ng-template #content let-c="close" let-d="dismiss">    
+    <div class="modal-header">    
+        <h4 class="modal-title" id="modal-basic-title">Delete Employee</h4>    
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+            <span aria-hidden="true">×</span>    
+        </button>    
+    </div>    
+    <div class="modal-body">    
+        <p>Are you sure to delete this Record {{DeletedName}}?</p>    
+    </div>    
+    <div class="modal-footer">    
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>    
+        <button type="button" class="btn btn-outline-dark btn-danger " (click)="c('yes')">Yes</button>    
+    </div>    
+</ng-template> 
 </div>
 </div>
   
-  <div>
-    <h1> Item List </h1>
-    <ul>
-        <li *ngFor="let item of itemList">{{item}}</li>
-    </ul>
-    <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Add New Item</button>
-</div>
-
+ 
 
 
