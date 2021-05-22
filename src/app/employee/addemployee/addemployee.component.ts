@@ -21,7 +21,7 @@ export class AddemployeeComponent implements OnInit {
       empName : new FormControl(null,Validators.required),
       empAddess : new FormControl(null,Validators.required),
       empEmail : new FormControl(null,[Validators.required,Validators.email]),
-      empPhone : new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+[1-9]*$/),Validators.minLength(11)]),
+      empPhone : new FormControl(null,[Validators.required,Validators.pattern(/^01[0-2]\d{1,8}$/),Validators.minLength(11)]),
     }); 
     
   }

@@ -1,68 +1,69 @@
 
 <div class="container">
   <div class="row">
-   <!--  <div class="col-sm-7  offset-sm-5">
+     <div class="col-sm-7  offset-sm-5">
       <div *ngIf="!loadingdata">
-      <div class="loadingio-spinner-spinner-wiptw5pypk"><div class="ldio-86zloens3vq">
-        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-        </div></div>
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
       </div>
-     </div>  -->
-     
+     </div> 
+     <div *ngIf="loadingdata">
      <div class="col-xs-12 col-sm-12" >
       <div class="panel panel-primary">
         <div class="panel-heading">
           <h2>Manage Employees</h2>
           <div class="btn-Action">
-            <button  class="btn btn-danger " (click)="openDeleteGruop(content,'Delete All Selected')"><i class="fa fa-minus"></i>   Delete </button>
+            <button  class="btn btn-danger" *ngIf="employees?.length > 0" (click)="openDeleteGruop(content,'Delete All Selected')"><i class="fa fa-minus"></i>   Delete </button>
             <button  class="btn btn-success btn-add" (click)="openModalWithComponent()"> <i class="fa fa-plus"></i> Add New Employee</button>
           </div>
         </div>
         <div class="panel-body">
-          <table class="table responsetable table-striped">
-            <thead>
-              <tr>
-                <th><input class="form-check-input" type="checkbox" (change)="checkAllValue($event)" name="all"  style=" margin-top: -11px;"></th>
-                <th>Employee Name</th>
-                <th>Employee Email</th>
-                <th>Employee Address</th>
-                <th>Employee Phone</th>
-                <th>Actions</th>
+            <div *ngIf="employees?.length > 0" class="div-table-container">
+              <table class="table responsetable table-striped">
+                <thead>
+                  <tr>
+                    <th><input class="form-check-input" type="checkbox" (change)="checkAllValue($event)" name="all"  style=" margin-top: -11px;"></th>
+                    <th>Employee Name</th>
+                    <th>Employee Email</th>
+                    <th>Employee Address</th>
+                    <th>Employee Phone</th>
+                    <th>Actions</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                 
                 
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="displaynone">
-               <td colspan="5">{{employees.length}}</td>
-             </tr> 
-               <tr *ngFor="let emp of employees  let i = index">
-                <td><input class="form-check-input" (change)="checkValue($event,emp.empId)"  [checked]="isChecked" name="{{emp.empId}}" type="checkbox"></td>
-                <td>{{emp.empName}}</td>
-                  <td>{{ emp.empEmail}}</td>
-                  <td>{{emp.empAddress}}</td>
-                  <td>{{emp.empPhone}}</td>
-                  <td>
-                    <button  class="btn-delete" (click)="open(content,emp.empId,emp.empName)" href="javascript:void(0);" ><i class="fa fa-trash"></i></button>
-                      <button  class="btn-edit" (click)="openEditModalWithComponent(emp.empId)" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
-                  </td>
-              </tr> 
-            
-            </tbody>
-          </table>
+                  <tr *ngFor="let emp of employees | paginate: { itemsPerPage: 10, currentPage: p, totalItems: total }">
+                    <td><input class="form-check-input" (change)="checkValue($event,emp.empId)"  [checked]="isChecked" id="{{emp.empId}}" type="checkbox"></td>
+                    <td>{{emp.empName}}</td>
+                      <td>{{ emp.empEmail}}</td>
+                      <td>{{emp.empAddress}}</td>
+                      <td>{{emp.empPhone}}</td>
+                      <td>
+                        <button  class="btn-delete" (click)="open(content,emp.empId,emp.empName)" href="javascript:void(0);" ><i class="fa fa-trash"></i></button>
+                          <button  class="btn-edit" (click)="openEditModalWithComponent(emp.empId)" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
+                      </td>
+                  </tr> 
+                
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <div *ngIf="employees?.length == 0">
+            <div class="bs-callout bs-callout-red col-xs-12 col-sm-12" id="callout-badges-ie8-empty">
+              <h4> Empty List</h4>
+              <p> 
+                There isn't data, please add somedata ......
+                  
+              </p>
+          </div>
+        </div>
         </div>
       </div>
     </div>
-  
-
-    <div *ngIf="employees?.length == 0">
-      <div class="bs-callout bs-callout-red col-xs-12 col-sm-12" id="callout-badges-ie8-empty">
-        <h4> Empty List</h4>
-        <p> 
-          There isn't data, please add somedata ......
-            
-        </p>
-    </div>
   </div>
+
+  
 
   <ng-template #content let-c="close" let-d="dismiss">    
     <div class="modal-header">    
@@ -83,5 +84,7 @@
 </div>
   
  
+
+           
 
 

@@ -68,7 +68,7 @@
                         onKeyPress="if(this.value.length==11) return false;">
                       
                     <span *ngIf="employeeAddform.controls['empPhone'].errors?.required && employeeAddform.controls['empPhone'].touched" style="color:red"> required!</span> 
-                    <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> enter only number</span> 
+                    <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be start with  011,012 or 010</span> 
                     <span *ngIf="employeeAddform.controls['empPhone'].errors?.minlength && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be only 11 number</span> 
                   
                     </div>
