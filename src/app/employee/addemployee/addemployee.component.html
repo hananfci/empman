@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-md-12">
-      <div class="modal-header">
+     <div class="modal-header">
         <h5 class="modal-title" id="confirmDeleteModalLabel">Add Employee</h5>
        
         <button type="button" class="close" aria-label="Cerrar" (click)="bsModalRef.hide();">
@@ -8,88 +8,84 @@
         </button>
     </div>
     <form [formGroup]="employeeAddform" (ngSubmit)="onPost()">
-    <div class="modal-body">
-        
-        <div class="col-md-12 form-content">
-      
-              <div class="col-sm-12 col-12" >
-                <div class="form-group">
-                  <label for="name" class="label">Employee Name</label>
-                  <input type="text" 
-                    id="name" 
-                    name="name" 
-                    placeholder="Name" 
-                    formControlName="empName"
-                    class="form-control">
-                  <span *ngIf="employeeAddform.controls['empName'].errors?.required && employeeAddform.controls['empName'].touched" style="color:red"> required!</span>
-                
-        </div>
-              </div>
-                <div class="col-sm-12 col-12" >
-                    <div class="form-group">
-                      <label for="address" class="label">Employee Address</label>
-                      <input type="text" 
-                        id="address" 
-                        name="address" 
-                        placeholder="address" 
-                        formControlName="empAddess"
-                        class="form-control">
-                    
-                        <span *ngIf="employeeAddform.controls['empAddess'].errors?.required && employeeAddform.controls['empAddess'].touched" style="color:red"> required!</span>
-                
-        
-                    </div>
-                </div>
+        <div class="modal-body">
+            
+              <div class="col-md-12 form-content">
+            
                     <div class="col-sm-12 col-12" >
-                        <div class="form-group">
-                          <label for="email" class="label">Employee Email</label>
-                          <input type="text" 
-                            id="email" 
-                            name="email" 
-                            placeholder="Email" 
-                            formControlName="empEmail"
-                            class="form-control">
-                          
-                              <span *ngIf="employeeAddform.controls['empEmail'].errors?.required && employeeAddform.controls['empEmail'].touched" style="color:red"> required!</span>
-                              <span *ngIf="employeeAddform.controls['empEmail'].errors?.email && employeeAddform.controls['empEmail'].touched" style="color:red"> Email must be in format example@test.com!</span>
-                          
-                        </div>
-              
-                  </div>
-                  <div class="col-sm-12 col-12">
-                    <div class="form-group">
-                      <label for="phone" class="label">Employee Phone</label>
-                      <input type="text" 
-                        id="phone" 
-                        name="phone" 
-                        placeholder="Phone" 
-                        formControlName="empPhone"
-                        class="form-control"
-                        onKeyPress="if(this.value.length==11) return false;">
+                      <div class="form-group">
+                        <label for="name" class="label">Employee Name</label>
+                        <input type="text" 
+                          id="name" 
+                          name="name" 
+                          placeholder="Name" 
+                          formControlName="empName"
+                          class="form-control">
+                        <span *ngIf="employeeAddform.controls['empName'].errors?.required && employeeAddform.controls['empName'].touched" style="color:red"> required!</span>
                       
-                    <span *ngIf="employeeAddform.controls['empPhone'].errors?.required && employeeAddform.controls['empPhone'].touched" style="color:red"> required!</span> 
-                    <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be start with  011,012 or 010</span> 
-                    <span *ngIf="employeeAddform.controls['empPhone'].errors?.minlength && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be only 11 number</span> 
-                  
+                      </div>
                     </div>
-          
-         </div>
-              
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide();">Cancel</button>
-    
-      <button type="submit" class="btn btn-success btn-lg btn-save"  style="position: relative;" [disabled]= "!employeeAddform.valid || postdata">save
 
-        <div class="loadingio-spinner-spin-tg278z7z83" [ngClass]="postdata? 'block' : 'none'" >
-          <div class="ldio-tw3lft2h3a">
-          <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+                      <div class="col-sm-12 col-12" >
+                          <div class="form-group">
+                            <label for="address" class="label">Employee Address</label>
+                            <input type="text" 
+                              id="address" 
+                              name="address" 
+                              placeholder="address" 
+                              formControlName="empAddess"
+                              class="form-control">
+                          
+                              <span *ngIf="employeeAddform.controls['empAddess'].errors?.required && employeeAddform.controls['empAddess'].touched" style="color:red"> required!</span>
+                      
+                          </div>
+                      </div>
+
+                      <div class="col-sm-12 col-12" >
+                          <div class="form-group">
+                            <label for="email" class="label">Employee Email</label>
+                            <input type="text" 
+                              id="email" 
+                              name="email" 
+                              placeholder="Email" 
+                              formControlName="empEmail"
+                              class="form-control">
+                            
+                                <span *ngIf="employeeAddform.controls['empEmail'].errors?.required && employeeAddform.controls['empEmail'].touched" style="color:red"> required!</span>
+                                <span *ngIf="employeeAddform.controls['empEmail'].errors?.email && employeeAddform.controls['empEmail'].touched" style="color:red"> Email must be in format example@test.com!</span>
+                            
+                          </div>
+                
+                      </div>
+                        <div class="col-sm-12 col-12">
+                          <div class="form-group">
+                            <label for="phone" class="label">Employee Phone</label>
+                            <input type="text" 
+                              id="phone" 
+                              name="phone" 
+                              placeholder="Phone" 
+                              formControlName="empPhone"
+                              class="form-control"
+                              onKeyPress="if(this.value.length==11) return false;">
+                            
+                          <span *ngIf="employeeAddform.controls['empPhone'].errors?.required && employeeAddform.controls['empPhone'].touched" style="color:red"> required!</span> 
+                          <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be start with  011,012 or 010</span> 
+                          <span *ngIf="employeeAddform.controls['empPhone'].errors?.minlength && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be only 11 number</span> 
+                        
+                          </div>
+                
+              </div>
+                  
           </div>
         </div>
-      </button>
-  </div>
-  </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide();">Cancel</button>
+        
+          <button type="submit" class="btn btn-success btn-lg btn-save"  [disabled]= "!employeeAddform.valid || postdata">save
+
+          </button>
+        </div>
+   </form>
 </div>
 
 

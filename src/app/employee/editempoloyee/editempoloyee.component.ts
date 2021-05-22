@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators } from '@angular/forms';
-import { IAddEmployee, IEmployee } from 'src/app/share/employee.model';
+import {IEmployee } from 'src/app/share/employee.model';
 
  import { BsModalRef } from 'ngx-bootstrap/modal'; 
 import { EmployeeService } from 'src/app/share/employee.service';
@@ -18,19 +18,16 @@ export class EditempoloyeeComponent implements OnInit {
   employee:IEmployee;
   list: any[] = []
   public event: EventEmitter<any> = new EventEmitter();
-  route: any;
-  location: any;
+ 
   constructor(private employeeService:EmployeeService, public bsModalRef: BsModalRef)  { }
 
 
   ngOnInit(): void {
-    console.log(this.list[0].value)
-
     this.employeeEditform=new FormGroup({
       empName : new FormControl(null,Validators.required),
       empAddress : new FormControl(null,Validators.required),
       empEmail : new FormControl(null,[Validators.required,Validators.email]),
-      empPhone : new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+[1-9]*$/),Validators.minLength(11)]),
+      empPhone : new FormControl(null,[Validators.required,Validators.pattern(/^01[0-2]\d{1,8}$/),Validators.minLength(11)]),
     }); 
     this.onGetEmployee(+(this.list[0].value))
   }

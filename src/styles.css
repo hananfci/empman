@@ -185,6 +185,9 @@ table td{
   position: absolute;
   margin-left: -6px;
 }
+.close{
+  color: #dc3545 !important;;
+}
 @media only screen and (max-width: 769px)
     {
     .div-table-container {

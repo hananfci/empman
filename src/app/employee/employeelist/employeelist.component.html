@@ -26,14 +26,16 @@
                     <th>Employee Email</th>
                     <th>Employee Address</th>
                     <th>Employee Phone</th>
-                    <th>Actions</th>
+                    <th>Actions </th>
                     
                   </tr>
                 </thead>
                 <tbody>
-                 
-                
-                  <tr *ngFor="let emp of employees | paginate: { itemsPerPage: 10, currentPage: p, totalItems: total }">
+                <!--   <tr class="displaynone">
+                  <td colspan="5">{{employees.length}}</td>
+                </tr>  --> 
+     
+                  <tr *ngFor="let emp of employees | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: count }">
                     <td><input class="form-check-input" (change)="checkValue($event,emp.empId)"  [checked]="isChecked" id="{{emp.empId}}" type="checkbox"></td>
                     <td>{{emp.empName}}</td>
                       <td>{{ emp.empEmail}}</td>
@@ -47,7 +49,8 @@
                 
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+             
+              <pagination-controls  (pageChange)="handlePageChange($event)" responsive="true"></pagination-controls>
           </div>
           <div *ngIf="employees?.length == 0">
             <div class="bs-callout bs-callout-red col-xs-12 col-sm-12" id="callout-badges-ie8-empty">

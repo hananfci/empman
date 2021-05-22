@@ -1,13 +1,9 @@
 import {Component, OnInit,ChangeDetectionStrategy, } from '@angular/core';
-/* import { ConfirmationDialogService } from '../../../confirmation-dialog/confirmation-dialog.service'; */
-
-import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../share/employee.service';
 import {IEmployee} from '../../share/employee.model'
 import { BsModalRef, BsModalService, ModalOptions } from  'ngx-bootstrap/modal/';
 import { AddemployeeComponent } from '../addemployee/addemployee.component';
 import { ChangeDetectorRef } from '@angular/core';
-import { throwError } from 'rxjs';
 import { EditempoloyeeComponent } from '../editempoloyee/editempoloyee.component';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
 @Component({
@@ -17,21 +13,22 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./employeelist.component.css']
 })
 export class EmployeelistComponent implements OnInit {
-
+ editMode:boolean = false;
    employees :  Array<IEmployee[]> ; 
   DeletedName : string;
   loadingdata :boolean= false;
-  currentCenter = null;
-  mod:number=0;
   postdata :boolean= false;
   empid:number;
   isChecked:boolean = false;
   checkedEmps:Array<number> = [];
   bsModalRef: BsModalRef;
   closeResult: string; 
-  p: number = 1; 
-  total:number;
-  constructor(private ref: ChangeDetectorRef,private ngbModal: NgbModal,private router:Router,private route:ActivatedRoute,private employeeService:EmployeeService,private modalService: BsModalService) { }
+ 
+  page =1;//current Page
+  count :number; //total pages
+  pageSize = 10; // number of items in each page
+  mod:number=0;
+  constructor(private ref: ChangeDetectorRef,private ngbModal: NgbModal,private employeeService:EmployeeService,private modalService: BsModalService) { }
 
   ngOnInit() {
     this.empList()
@@ -41,17 +38,35 @@ export class EmployeelistComponent implements OnInit {
     this.employeeService.getEmpList()
       .subscribe(
         response => {
+          debugger
          this.loadingdata= true;
-         
           const jsonValue = JSON.stringify(response);
           const valueFromJson = JSON.parse(jsonValue);
           this.employees = ((valueFromJson || {}));
-          this.total = ((valueFromJson || {})).records;
+          this.count = this.employees.length;
+          if(this.editMode){
+            this.editMode=false;
+            }
+          else{
+            if((this.count % this.pageSize)>0)
+            {
+               this.mod=1;
+            }
+          else
+            {
+              this.mod=0;
+            }
+            const countPage = ~~(((this.count)/this.pageSize)) + this.mod;
+            this.page=countPage;
+          }
           this.ref.detectChanges();
         },
         error => {
           
         });
+  }
+  handlePageChange(event) { // event is number of the new page
+    this.page = event;
   }
 
   openModalWithComponent() {
@@ -65,21 +80,22 @@ export class EmployeelistComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';  
     this.bsModalRef.content.event.subscribe(res => {
       this.empList();
-      this.ref.detectChanges();
+     
    });
   }
   openEditModalWithComponent(id:number) {
-   
+   this.editMode = true;
     const initialState = {
       list: [
         {"tag":'Count',"value":id}
       ]
     };
-    this.bsModalRef = this.modalService.show(EditempoloyeeComponent, {initialState});
+    this.bsModalRef = this.modalService.show(EditempoloyeeComponent, {initialState, backdrop: 'static',  keyboard: false,    animated: true,
+    ignoreBackdropClick: true,});
     this.bsModalRef.content.closeBtnName = 'Close';  
     this.bsModalRef.content.event.subscribe(res => {
       this.empList();
-      this.ref.detectChanges();
+      
    });
   
   }
@@ -105,6 +121,7 @@ export class EmployeelistComponent implements OnInit {
         this.closeResult = `Closed with: ${result}`;  
         if (result === 'yes') {  
             this.checkedEmps.map(item => {this.deleteHero(item)})
+         
             this.checkedEmps = [];
         }  
       }, (reason) => {  
@@ -149,13 +166,11 @@ export class EmployeelistComponent implements OnInit {
   
  
   checkAllValue(event){
-     this.isChecked = true
+     this.isChecked = !this.isChecked;
       this.checkedEmps = []
       const cols = document.querySelectorAll('.form-check-input');
 
       cols.forEach((event)=>{
-
-      console.log(event.id);
       this.checkedEmps.push(+(event.id));
       });
   }

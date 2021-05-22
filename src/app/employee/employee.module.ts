@@ -8,15 +8,14 @@ import { EditempoloyeeComponent } from './editempoloyee/editempoloyee.component'
 import { EmployeeComponent } from './employee.component';
 import { CommonModule } from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { ModalModule, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';  
+import { ModalModule } from 'ngx-bootstrap/modal';  
 
 @NgModule({
   imports: [
     CommonModule,
     EmployeeRoutingModule,    
     ReactiveFormsModule,
-    NgxPaginationModule,
-    
+    NgxPaginationModule,    
     ModalModule.forRoot(),
     
   ],

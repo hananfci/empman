@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAddEmployee } from 'src/app/share/employee.model';
 import { EmployeeService } from 'src/app/share/employee.service';
  import { BsModalRef } from 'ngx-bootstrap/modal';  
@@ -14,6 +14,7 @@ export class AddemployeeComponent implements OnInit {
   postdata :boolean= false;
   employee:IAddEmployee;
   public event: EventEmitter<any> = new EventEmitter();
+
   constructor(private employeeService:EmployeeService, public bsModalRef: BsModalRef)  { }
  
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class AddemployeeComponent implements OnInit {
     }); 
     
   }
+  
   onPost(){
     this.postdata = true;
     this.employee={
