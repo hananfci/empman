@@ -37,8 +37,8 @@ in this projedt I have used
 
 
 ### component employeelist
- in this component there are table  contain all list of employee with icons buttons and checjbox  with each td cell to  delete or edit each employee 
- also there is checkboxs in header table to select all employess once and press on button it's name delete in panel header to delete all employees once
+ in this component there are table  contain all list of employees with icons buttons and checkbox  with each td cell to  delete or edit each employee 
+ also there is checkbox in header table to select all employees once and press on button it's name delete in panel header to delete all employees once
  ther is also button add new employee to add new employee
 
 ### component addemployee
