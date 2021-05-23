@@ -1,27 +1,50 @@
-# Empmanagment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
+## Quick Overview
 
-## Development server
+```sh
+ npm install - g @angular/cli10
+ ng new empmanagment
+cd empmanagment
+ng serve 
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+empmanagment
+├── README.md
+├── node_modules
+├── package.json
+├── employee
+│   ├── addemployee
+│   ├── editempoloyee
+│   └── employeelist
+└── src
+    ├── App
+        ├──employee
+            ├── addemployee
+            ├── editempoloyee
+            ├── employeelist
+        ├──share
+            ├── employee.model
+            ├── employee.service
+```
 
-## Code scaffolding
+in this projedt I have used 
+- npm install bootstrap.
+- npm install jquery
+- npm install --save @ng-bootstrap/ng-bootstrap.
+- npm install ngx-bootstrap --save
+- npm install ngx-pagination --save
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+### component employeelist
+ in this component there are table  contain all list of employee with icons buttons and checjbox  with each td cell to  delete or edit each employee 
+ also there is checkboxs in header table to select all employess once and press on button it's name delete in panel header to delete all employees once
+ ther is also button add new employee to add new employee
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### component addemployee
+  in this component you csn edit specific employee info, there is form with some inputs to insert employee info , I have use reactive form 
+### component editempoloyee
+  in this component there is form with some inputs to insert employee info , I have use reactive form 
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### share folder 
+  contain employee.model and employee.service
