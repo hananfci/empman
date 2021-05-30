@@ -22,9 +22,9 @@
                 <thead>
                   <tr>
                     <th><input class="form-check-input" type="checkbox" (change)="checkAllValue($event)" name="all"  style=" margin-top: -11px;"></th>
-                    <th>Employee Name</th>
+                    <th  style="cursor: pointer;" > Employee Name <i (click)="onSortClick($event,'empName')" class="my-icon fa fa-long-arrow-down"></i></th>
                     <th>Employee Email</th>
-                    <th>Employee Address</th>
+                    <th  style="cursor: pointer;">Employee Address <i (click)="onSortClick($event,'empAddress')" class="my-icon fa fa-long-arrow-down"></i></th>
                     <th>Employee Phone</th>
                     <th>Actions </th>
                     
@@ -35,22 +35,40 @@
                   <td colspan="5">{{employees.length}}</td>
                 </tr>  --> 
      
-                  <tr *ngFor="let emp of employees | paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: count }">
+                  <tr *ngFor="let emp of pagedItems ">
                     <td><input class="form-check-input" (change)="checkValue($event,emp.empId)"  [checked]="isChecked" id="{{emp.empId}}" type="checkbox"></td>
                     <td>{{emp.empName}}</td>
-                      <td>{{ emp.empEmail}}</td>
-                      <td>{{emp.empAddress}}</td>
-                      <td>{{emp.empPhone}}</td>
-                      <td>
-                        <button  class="btn-delete" (click)="open(content,emp.empId,emp.empName)" href="javascript:void(0);" ><i class="fa fa-trash"></i></button>
-                          <button  class="btn-edit" (click)="openEditModalWithComponent(emp.empId)" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
-                      </td>
+                    <td>{{ emp.empEmail}}</td>
+                    <td>{{emp.empAddress}}</td>
+                    <td>{{emp.empPhone}}</td>
+                    <td>
+                      <button  class="btn-delete" (click)="open(content,emp.empId,emp.empName)" href="javascript:void(0);" ><i class="fa fa-trash"></i></button>
+                        <button  class="btn-edit" (click)="openEditModalWithComponent(emp.empId)" style="margin-left: 10px"><i class="fa fa-edit"></i></button>
+                    </td>
                   </tr> 
                 
                 </tbody>
               </table>
+            
+               <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                      <a (click)="setPage(1)" class="page-link">First</a>
+                  </li>
+                  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                      <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+                  </li>
+                  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+                      <a (click)="setPage(page)" class="page-link">{{page}}</a>
+                  </li>
+                  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                      <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+                  </li>
+                  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                      <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+                  </li>
+              </ul>
              
-              <pagination-controls  (pageChange)="handlePageChange($event)" responsive="true"></pagination-controls>
+             
           </div>
           <div *ngIf="employees?.length == 0">
             <div class="bs-callout bs-callout-red col-xs-12 col-sm-12" id="callout-badges-ie8-empty">

@@ -6,6 +6,7 @@ import { AddemployeeComponent } from '../addemployee/addemployee.component';
 import { ChangeDetectorRef } from '@angular/core';
 import { EditempoloyeeComponent } from '../editempoloyee/editempoloyee.component';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap'; 
+import {PagerService} from '../pager.service'
 @Component({
   selector: 'app-employeelist',
   templateUrl: './employeelist.component.html',
@@ -14,7 +15,12 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EmployeelistComponent implements OnInit {
  editMode:boolean = false;
-   employees :  Array<IEmployee[]> ; 
+  employees : any ; 
+  pager: any = {};
+  pagedItems: any[];
+  lastpage:number;
+  pageNumber = 1;//current Page
+  ascending=true;
   DeletedName : string;
   loadingdata :boolean= false;
   postdata :boolean= false;
@@ -23,12 +29,12 @@ export class EmployeelistComponent implements OnInit {
   checkedEmps:Array<number> = [];
   bsModalRef: BsModalRef;
   closeResult: string; 
- 
-  page =1;//current Page
+  sortDir = 1;//1= 'ASE' -1= DSC
+ /*  page =1;//current Page
   count :number; //total pages
   pageSize = 10; // number of items in each page
-  mod:number=0;
-  constructor(private ref: ChangeDetectorRef,private ngbModal: NgbModal,private employeeService:EmployeeService,private modalService: BsModalService) { }
+  mod:number=0; */
+  constructor(private ref: ChangeDetectorRef,private pagerService: PagerService,private ngbModal: NgbModal,private employeeService:EmployeeService,private modalService: BsModalService) { }
 
   ngOnInit() {
     this.empList()
@@ -42,32 +48,57 @@ export class EmployeelistComponent implements OnInit {
          this.loadingdata= true;
           const jsonValue = JSON.stringify(response);
           const valueFromJson = JSON.parse(jsonValue);
-          this.employees = ((valueFromJson || {}));
-          this.count = this.employees.length;
-          if(this.editMode){
-            this.editMode=false;
-            }
-          else{
-            if((this.count % this.pageSize)>0)
-            {
-               this.mod=1;
-            }
-          else
-            {
-              this.mod=0;
-            }
-            const countPage = ~~(((this.count)/this.pageSize)) + this.mod;
-            this.page=countPage;
-          }
+         /*  this.employees = ((valueFromJson || {}));  */
+         this.employees = response; 
+          this.pager = this.pagerService.getPager(this.employees.length);
+          this.pageNumber =  this.pager.endPage;      
+          this.setPage(this.pageNumber);         
           this.ref.detectChanges();
         },
         error => {
           
         });
   }
-  handlePageChange(event) { // event is number of the new page
-    this.page = event;
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+        return;
+    }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.employees.length, page);   
+    // get current page of items
+    this.pagedItems = this.employees.slice(this.pager.startIndex, this.pager.endIndex + 1);
+}
+onSortClick(event, colNameatrr) {
+  debugger;
+  let target = event.currentTarget,
+    classList = target.classList;
+
+  if (classList.contains('fa-long-arrow-up')) {
+    classList.remove('fa-long-arrow-up');
+    classList.add('fa-long-arrow-down');
+    this.sortDir = -1;
+  } else {
+    classList.add('fa-long-arrow-up');
+    classList.remove('fa-long-arrow-down');
+    this.sortDir = 1;
+
   }
+ 
+  this.sortArr(colNameatrr);
+  this.setPage(1); 
+}
+ sortArr(colName: any) {
+   
+  this.employees.sort((a, b) => {
+    debugger;
+    a = a[colName].toLowerCase();
+    b = b[colName].toLowerCase();
+    return a.localeCompare(b) * this.sortDir ;
+  });
+ 
+} 
 
   openModalWithComponent() {
     const config: ModalOptions = {
@@ -79,8 +110,10 @@ export class EmployeelistComponent implements OnInit {
     this.bsModalRef = this.modalService.show(AddemployeeComponent,config);
     this.bsModalRef.content.closeBtnName = 'Close';  
     this.bsModalRef.content.event.subscribe(res => {
-      this.empList();
-     
+      debugger;
+   
+    this.empList();
+    this.ref.detectChanges();
    });
   }
   openEditModalWithComponent(id:number) {
@@ -105,6 +138,7 @@ export class EmployeelistComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;  
       if (result === 'yes') {  
         this.deleteHero(empID);  
+        
       }  
     }, (reason) => {  
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  
@@ -142,7 +176,9 @@ export class EmployeelistComponent implements OnInit {
   
   deleteHero(id) {  
     debugger
-    this.employeeService.onDelete(id).subscribe(data=>{       
+    this.employeeService.onDelete(id).subscribe(data=>{    
+      this.pager = this.pagerService.getPager(this.employees.length);
+      this.pageNumber =  this.pager.endPage;      
         this.empList();
       },err=>{});  
   }

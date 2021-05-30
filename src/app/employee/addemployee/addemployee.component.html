@@ -52,7 +52,7 @@
                               class="form-control">
                             
                                 <span *ngIf="employeeAddform.controls['empEmail'].errors?.required && employeeAddform.controls['empEmail'].touched" style="color:red"> required!</span>
-                                <span *ngIf="employeeAddform.controls['empEmail'].errors?.email && employeeAddform.controls['empEmail'].touched" style="color:red"> Email must be in format example@test.com!</span>
+                                <span *ngIf="employeeAddform.controls['empEmail'].errors?.pattern && employeeAddform.controls['empEmail'].touched" style="color:red"> Email must be in format example@test.com!</span>
                             
                           </div>
                 
@@ -69,7 +69,7 @@
                               onKeyPress="if(this.value.length==11) return false;">
                             
                           <span *ngIf="employeeAddform.controls['empPhone'].errors?.required && employeeAddform.controls['empPhone'].touched" style="color:red"> required!</span> 
-                          <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be start with  011,012 or 010</span> 
+                          <span *ngIf="employeeAddform.controls['empPhone'].errors?.pattern && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be start with  011,012 or 010 and must be only numbers</span> 
                           <span *ngIf="employeeAddform.controls['empPhone'].errors?.minlength && employeeAddform.controls['empPhone'].touched" style="color:red"> phone number must be only 11 number</span> 
                         
                           </div>

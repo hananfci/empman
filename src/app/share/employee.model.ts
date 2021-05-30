@@ -2,7 +2,7 @@ export interface  IEmployee{
     'empId':number,
     'empName': string;
     'empEmail': string;
-    'empAddress': string;
+    empAddress: string;
     'empPhone': string;
   
   }
@@ -14,4 +14,5 @@ export interface  IEmployee{
     'empPhone': string;
   
   }
+  
   
